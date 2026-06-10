@@ -1,11 +1,9 @@
 ﻿namespace ConnectFour.Views
 {
-    // ConsoleView handles all display output
-    // Keeping display logic separate from game logic is good OOP design
-    // This is called the "Single Responsibility Principle"
+    // Handles all console display - separated from game logic
+    // Single Responsibility Principle
     internal class ConsoleView
     {
-        // Shows the welcome screen when the game starts
         public void ShowWelcome()
         {
             Console.Clear();
@@ -18,7 +16,6 @@
             Console.WriteLine();
         }
 
-        // Displays the game board with colors
         public void DisplayBoard(char[,] grid)
         {
             Console.Clear();
@@ -32,7 +29,6 @@
                 for (int c = 0; c < grid.GetLength(1); c++)
                 {
                     char cell = grid[r, c];
-
                     if (cell == 'X')
                         Console.ForegroundColor = ConsoleColor.Red;
                     else if (cell == 'O')
@@ -46,7 +42,6 @@
                 Console.WriteLine("|");
             }
 
-            // Column numbers at the bottom
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.Write("| ");
             for (int i = 1; i <= 7; i++)
@@ -56,7 +51,6 @@
             Console.WriteLine();
         }
 
-        // Shows whose turn it is
         public void ShowTurn(string name, char symbol)
         {
             Console.ForegroundColor = symbol == 'X'
@@ -66,11 +60,18 @@
             Console.ResetColor();
         }
 
-        // Shows a general message
         public void ShowMessage(string message)
         {
             Console.ResetColor();
             Console.WriteLine(message);
+        }
+
+        // New method - shows score at end of game
+        public void ShowResult(string winnerName)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"\n★ {winnerName} wins the game! Congratulations! ★");
+            Console.ResetColor();
         }
     }
 }
