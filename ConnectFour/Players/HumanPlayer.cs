@@ -1,15 +1,14 @@
 ﻿namespace ConnectFour.Players
 {
-    // HumanPlayer INHERITS from Player (Inheritance)
-    // It gets its move from keyboard input
+    // HumanPlayer gets moves from keyboard input
+    // Inherits from Player and overrides GetMove()
     internal class HumanPlayer : Player
     {
-        // Constructor passes name and symbol up to the Player base class
         public HumanPlayer(string name, char symbol) : base(name, symbol)
         {
         }
 
-        // Override GetMove() to get input from the user (Polymorphism)
+        // Validates input and keeps asking until valid
         public override int GetMove()
         {
             int column;
@@ -18,11 +17,12 @@
                 Console.Write($"{Name}, choose a column (1-7): ");
                 string? input = Console.ReadLine();
 
-                // Validate input - must be a number between 1 and 7
                 if (int.TryParse(input, out column) && column >= 1 && column <= 7)
-                    return column - 1; // Convert to 0-based index
+                    return column - 1;
 
-                Console.WriteLine("Invalid input! Please enter a number between 1 and 7.");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Invalid! Please enter a number between 1 and 7.");
+                Console.ResetColor();
             }
         }
     }
